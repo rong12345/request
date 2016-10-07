@@ -74,7 +74,7 @@ export default class PostList extends Component {
       )
     }, this.state.posts);
     return(
-      <div >
+      <div>
         <Link to="/write" style={styles.link}>写文章</Link>
         { postList }
       </div>

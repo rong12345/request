@@ -10,7 +10,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 var cors = require('cors');
 app.use(cors());
 
-
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/request');
 
@@ -56,7 +55,7 @@ app.get('/post/:id', function(req, res) {
 //   Post.find().sort({'_id':-1}).exec(function(err,posts) {
 //       res.send(posts)
 //   });
-//
+
 // })
 
 
