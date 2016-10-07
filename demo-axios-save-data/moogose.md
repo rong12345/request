@@ -1,5 +1,6 @@
 ### mongodb 启动与连接        
 [知识点链接](http://haoqicat.com/react-express-api/2-mongodb)
+
 1. #### 创建文件
     ```js
     $ mkdir -p data/db
@@ -29,8 +30,11 @@
       ```js
         > db 或者 db.getName()
       ```
-  - ##### 删除当前使用的数据库
+  - ##### 删除数据库
       ```js
+        > db.dropDatabase()  --删除当前使用的数据库
+        或者
+        > use digicity-express-api  --删除非当前的数据库
         > db.dropDatabase()
       ```
   - ##### 创建一个集合
@@ -49,4 +53,29 @@
       ```js
         > db.posts.find()
       ```
-![](https://github.com/happypeter/digicity-express-api/blob/master/doc/img/001-ada.png?raw=true)
+  - ##### 修改一条记录（了解内容）
+      ```js
+        > db.posts.update({_id: ObjectId('xxx')}, {$set: {title: 'mongodb'}})
+      ```
+  - #### 删除一条记录
+      ```js
+        > db.posts.remove({_id: ObjectId('xxx')})
+      ```
+  - #### 删除 posts 集合中的所有记录
+      ```js
+        > db.posts.remove({})
+      ```
+![](https://github.com/rong12345/request/blob/master/img/001.png?raw=true)
+
+
+### 为什么叫记录电子版笔记？
+
+第一个原因，使用 markdown 格式美观
+
+>Beauty is your ablity to tame complexity
+
+第二个原因，便于更新
+
+第三个原因，有 git/github 控制，永远不会丢失
+
+第四个原因，便于搜索。
