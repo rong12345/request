@@ -21,9 +21,9 @@ class ShowPost extends React.Component {
   render () {
     return(
       <div>
-        { this.state.data.category } <br />
-        { this.state.data.title } <br />
-        { this.state.data.content }
+        标题：{ this.state.data.category } <br />
+        类别：{ this.state.data.title } <br />
+        内容：{ this.state.data.content }
       </div>
     )
   }

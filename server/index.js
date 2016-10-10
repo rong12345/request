@@ -20,6 +20,10 @@ db.once('open', function() {
   console.log('success!')
 });
 
+app.get('/', function(req, res) {
+  res.send('this is th api aerver')
+});
+
 app.get('/posts', function(req, res) {
   Post.find().exec(function(err, posts) {
     res.json({ posts: posts})
