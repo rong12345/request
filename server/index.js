@@ -1,35 +1,24 @@
 var express = require('express');
 var  app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose');  //在 js 代码中导入 mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
-
 //开放CORS 关闭同源策略
-var cors = require('cors');
+var cors = require('cors'); //请求允许的源头
 app.use(cors());
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/request');
+mongoose.Promise = global.Promise; //加上没有警告信息
+mongoose.connect('mongodb://localhost:27017/request');  //进行数据库的连接
 
 var Post = require('./models/post');
 
-var db = mongoose.connection;
+var db = mongoose.connection; //保证数据库连接是成功
 db.on('error', console.log);
 db.once('open', function() {
   console.log('success!')
 });
-
-// app.get('/posts', function(req, res) {
-//   // res.redirect('http://www.baidu.com')
-//   var page = "<form method='post' action='/posts'>"+
-//               "<input type='text' name='title'/>"+
-//                 "<input type='submit' />"+
-//                 "</form>"
-//   res.send(page)
-// })
-
 
 app.get('/posts', function(req, res) {
   Post.find().exec(function(err, posts) {
@@ -42,6 +31,35 @@ app.get('/post/:id', function(req, res) {
     res.json({post: doc})
   })
 })
+
+app.post('/posts', function(req, res) {
+  // var post = new Post({title: req.body.title});
+  console.log(req.body);
+  var post = new Post({
+    title:req.body.title,
+    category:req.body.category,
+    content:req.body.content,
+  });
+  post.save(function(err){
+    if(err) return console.log(err);
+    console.log('save');
+  })
+  // res.redirect('/posts')
+  res.json({message:"成功保存"})
+})
+app.listen(3000, function() {
+  console.log('running on port 3000')
+})
+
+// app.get('/posts', function(req, res) {
+//   // res.redirect('http://www.baidu.com')
+//   var page = "<form method='post' action='/posts'>"+
+//               "<input type='text' name='title'/>"+
+//                 "<input type='submit' />"+
+//                 "</form>"
+//   res.send(page)
+// })
+
 
 // app.get('/posts', function(req, res) {
 //   console.log('GET /posts')
@@ -57,8 +75,6 @@ app.get('/post/:id', function(req, res) {
 //   });
 
 // })
-
-
 
 // app.get('/posts/:id', function(req, res) {
 //   res.send('GET /posts/:id')
@@ -85,25 +101,3 @@ app.get('/post/:id', function(req, res) {
 //   res.send('DELETE /posts')
 //   console.log('DELETE /posts/:id')
 // })
-
-
-
-
-app.post('/posts', function(req, res) {
-  // var post = new Post({title: req.body.title});
-  console.log(req.body);
-  var post = new Post({
-    title:req.body.title,
-    category:req.body.category,
-    content:req.body.content,
-  });
-  post.save(function(err){
-    if(err) return console.log(err);
-    console.log('save');
-  })
-  // res.redirect('/posts')
-  res.json({message:"成功保存"})
-})
-app.listen(3000, function() {
-  console.log('running on port 3000')
-})

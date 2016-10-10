@@ -1,1 +1,19 @@
-{}
+{
+  "name": "jr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rong12345/request.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rong12345/request/issues"
+  },
+  "homepage": "https://github.com/rong12345/request#readme",
+  "description": ""
+}
