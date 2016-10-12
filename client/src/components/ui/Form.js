@@ -69,7 +69,15 @@ class Form extends Component {
     let content = this.refs.content.value;
 
     if (title.length==0) {
-      alert('内容不允许为空')
+      alert('不允许为空')
+      return;
+    }
+    else if(category.length==0){
+      alert('不允许为空')
+      return;
+    }
+    else if(content.length==0){
+      alert('不允许为空')
       return;
     }
     this.props.newPost({title,category,content});

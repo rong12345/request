@@ -44,7 +44,7 @@ class App extends React.Component {
     return(
       <div style={styles.wrap}>
         <header style={styles.header}>
-          <div style={styles.link}>BORN TO CODE</div>
+          <Link to='/' style={styles.link}>BORN TO CODE</Link>
         </header>
         { this.props.children }
       </div>

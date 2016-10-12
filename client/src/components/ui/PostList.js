@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import map from 'lodash/fp/map';
 import axios from 'axios';
 import { Link } from 'react-router';
-
+import Settings  from '../../settings';
+import filter from 'lodash/fp/filter';
 
 export default class PostList extends Component {
   constructor() {
@@ -22,7 +23,8 @@ export default class PostList extends Component {
         backgroundColor: '#fff',
         borderRadius: '5px',
         padding: '16px',
-        boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px'
+        boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
+        minHeight: '80px'
       },
       title: {
         fontSize: '1.2em'
@@ -47,7 +49,8 @@ export default class PostList extends Component {
       },
       cha:{
         color:'rgb(255, 64, 129)',
-        textDecoration:'none'
+        textDecoration:'none',
+        paddingRight: '20px'
       }
     }
   }
@@ -61,6 +64,22 @@ export default class PostList extends Component {
       // console.log(this.state.posts);
     });
   }
+  filterPosts(id) {
+     const posts = filter((post) => {
+       return post._id !== id
+     }, this.state.posts);
+
+     this.setState({ posts: posts })
+   }
+  handleClick(value){
+    console.log("handleClick");
+    axios.delete(`${Settings.host}/posts/${value}`).then(res => {
+      // console.log('成功删除');
+      console.log('filering..!');
+      this.filterPosts(value);
+      //筛除已经删除的post
+    })
+  }
   render() {
     const styles = this.getStyles();
     const postList = map((post) => {
@@ -68,7 +87,9 @@ export default class PostList extends Component {
         <div style={styles.content} key={post._id}>
           <div style={styles.title}>{post.title}</div>
           <div style={styles.a}>
-            <Link style={styles.cha} to={`/post/${post._id}`}>查看</Link>
+            <Link style={styles.cha} to={`/posts/${post._id}`}>查看</Link>
+            <Link to={`/posts/${post._id}/edit`} style={styles.cha}>编辑</Link>
+            <Link to={``} style={styles.cha} onClick={this.handleClick.bind(this,post._id)}>删除</Link>
           </div>
         </div>
       )
